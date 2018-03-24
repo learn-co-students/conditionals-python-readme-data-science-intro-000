@@ -1,209 +1,71 @@
 
-# For loops
+# Conditionals
+
+### Introduction
+
+So far, we have seen how retrieve data from our code, and manipulate that data.  What we have not learned, however, is how to make decisions with that data.  Making decisions is something that we do every day in the real world.  For example, if a restaurant is too expensive we may want to choose a different one.  If it's too cold outside, we should find something to do inside.  These are the types of decisions we want our code to make as well.  After learning about conditionals we can do just that.  
 
 ### Learning Objectives
 
-* Understand the components of a point in a graph, an $x$ value, and a $y$ value 
-* Understand how to plot a point on a graph, from a point's $x$ and $y$ value
-* Get a sense of how to use a graphing library, like Plotly, to answer questions about our data
+* Understand how an `if` statement can change the execution flow of our code when certain conditions are met
+* Understand how the `if` keyword works with the `else` keyword in Python
+* See how to to combine `if` statements in `for` loops
 
-### Picking up where we last left off
+### If statement and execution flow
 
-In the last lesson, we plotted some of our travel data.
-
-
-```python
-import pandas
-file_name = './cities.xlsx'
-travel_df = pandas.read_excel(file_name)
-cities = travel_df.to_dict('records')
-```
+So far in Python, all of our lines of code have run one after the other. 
 
 
 ```python
-import plotly
-
-plotly.offline.init_notebook_mode(connected=True)
-
-x_values = [cities[0]['City'], cities[1]['City'], cities[2]['City']]
-y_values = [cities[0]['Population'], cities[1]['Population'], cities[2]['Population']]
-
-trace_first_three_pops = {'x': x_values, 'y': y_values, 'type': 'bar'}
-# plotly.offline.iplot([trace_first_three_pops])
+vacation_days = 0
+vacation_days += 1
+vacation_days
 ```
 
 
-<script>requirejs.config({paths: { 'plotly': ['https://cdn.plot.ly/plotly-latest.min']},});if(!window.Plotly) {{require(['plotly'],function(plotly) {window.Plotly=plotly;});}}</script>
 
 
-Let's take another look at our `x_values` variable. 
-
-
-```python
-x_values = [cities[0]['City'], cities[1]['City'], cities[2]['City']]
-```
-
-As you can see, we go one by one through the `cities` list, and for each element of the cities list, we retrieve the `City` attribute.  This procedure of going one by one, and doing the same thing can be automated with the `for` loop.
-
-### Learning Objectives
-
-### Introduction to the For Loop
-
-A `for` loop in Python, is good at going through elements of a list one by one.  Let's take an initial array.
-
-
-```python
-zero_to_three = [0, 1, 2, 3]
-```
-
-Now to print the elements of a list, we currently do the following: 
-
-
-```python
-print(zero_to_three[0])
-print(zero_to_three[1])
-print(zero_to_three[2])
-```
-
-    0
     1
-    2
 
 
-So we increase the index by one each time, starting at the number zero and ending at the number 2.  A `for` loop is great at going through these elements in the list.  For example:
 
+> The += is used to increment.  The statement `vacation_days += 1` can be thought of as `vacation_days = vacation_days + 1`.  So before line 2, `vacation_days` is 0.  Then we reassign `vacation_days` to equal the previous value of `vacation_days`, 0, plus one.
 
-```python
-for i in [0, 1, 2]:
-    print(i + 5)
-```
-
-    5
-    6
-    7
-
-
-So note that above, our expression prints three times: once for each element in our list.  The first time it starts with the number 0, for that is the first element in the array, and then it goes forward to the second element, and then the third.  So we can use the `for` loop to operate on the numbers zero through two, and the `i` represents a successive element in our list each time.
-
-Pay careful attention to the syntax.  Essentially, Python needs to know when the body of the loop begins and when it ends.  So we mark the beginning of the loop's body with a colon, `:`, and then indent each successive line of the loop.  (If you press enter after the colon, the indent will come automatically).  To end the body of the loop, we simply unindent. 
+Contrast this with code with an `if` statement.  Once we run an `if` statement, this is no longer the case.  Code that is part of an `if` block runs does not run when the conditional argument is `False`.  
 
 
 ```python
-for i in [0, 1, 2]:
-    print(i + 5)
-print(10)
-```
-
-    5
-    6
-    7
-    10
-
-
-Just like any other variable, we can call the `i` whatever we like.  
-
-
-```python
-for number in [0, 1, 2]:
-    print(number + 5)
-```
-
-    5
-    6
-    7
-
-
-We just have to make sure that whatever word we use after `for` is referenced in our loop later on.
-
-
-```python
-for number in [0, 1, 2]:
-    print(what + 5)
-```
-
-
-    ---------------------------------------------------------------------------
-
-    NameError                                 Traceback (most recent call last)
-
-    <ipython-input-23-ba9129ae8cfe> in <module>()
-          1 for number in [0, 1, 2]:
-    ----> 2     print(what + 5)
-    
-
-    NameError: name 'what' is not defined
-
-
-### Using list elements as indices
-
-In the above section we iterated through a list of successive numbers.  Now remember that to access elements of any lists, we use a number to do so.
-
-
-```python
-countries = ['Croatia', 'USA', 'Argentina']
+vacation_days = 1
+if False:
+    # code does not run as conditional argument False
+    vacation_days += 1
 ```
 
 
 ```python
-countries[0]
+vacation_days
 ```
 
 
 
 
-    'Croatia'
-
-
-
-
-```python
-countries[2]
-```
-
-
-
-
-    'Argentina'
-
-
-
-So to iterate through the elements of `countries`, we can do the following:  
-
-
-```python
-for i in [0, 1, 2]:
-    print(countries[i])
-```
-
-    Croatia
-    USA
-    Argentina
-
-
-So notice what happened there.  Just like previously, our loop variable, `i`, is a different element of the list each time.  Because these elements are also the increasing indices for our list of `countries`, we can use them to access and then operate on the elements of the `countries`.
-
-
-```python
-for i in [0, 1, 2]:
-    print(i)
-    print(countries[i])
-```
-
-    0
-    Croatia
     1
-    USA
-    2
-    Argentina
 
 
-Of course, this only works if the elements of the list match up with the size of our list.  So it would be nice to perform some calculation to ensure that this is the case.  Let's do it.
 
-We can use the `len` function to calculate the size of our list.
+Because the code after `if` equals `False`, the code directly underneath is not run.  So, `vacation_days` stays assigned to the number 1.  
+
+Just as we did with functions, we indicate that something is part of the block by indenting.  So we indented the line `vacation_days += 1` to ensure that whether it is run depends on the conditional argument above.  To end the block we simply stop indenting.
 
 
 ```python
-len(countries)
+vacation_days = 1
+if False:
+    # if block begins
+    vacation_days += 1
+# if block ends
+vacation_days += 2
+vacation_days
 ```
 
 
@@ -213,110 +75,170 @@ len(countries)
 
 
 
-Then we can turn this length into a successive list of elements with the following:
+So above, the last two lines are run as they are not part of the `if` block.
 
-First, create a range object:
+And, as you may have guessed, when the conditional argument is `True`, the code in the conditional block **does** run.  
 
 
 ```python
-range(0, len(countries))
+vacation_days = 1
+if True:
+    # code in if block runs, as True
+    vacation_days += 1
+vacation_days
 ```
 
 
 
 
-    range(0, 3)
+    2
 
 
 
-And then convert this into a list:
+### Code that sometimes runs
+
+Our code in conditional arguments becomes more interesting if we use conditional arguments that are less direct.
 
 
 ```python
-list(range(0, len(countries)))
+def long_vacation(number_of_days):
+    if number_of_days > 4:
+        return 'that is a long vacation'
+```
+
+
+```python
+long_vacation(5) # 'that is a long vacation'
+long_vacation(3) # None
+```
+
+In the code above, you can hopefully see the power of our `if` statement.  Our `if` argument is the expression `number_of_days > 4`, which sometimes evaluates to `True` and sometimes `False`, it depends on the number of days.
+
+Now sometimes we want to say that when something is not `True`, do something **else**.
+
+
+```python
+def vacation_length(number_of_days):
+    if number_of_days > 4:
+        return 'that is a long vacation'
+    else:
+        return 'not so long'
+```
+
+
+```python
+vacation_length(3) # 'not so long'
+vacation_length(5) # 'that is a long vacation'
 ```
 
 
 
 
-    [0, 1, 2]
+    'that is a long vacation'
 
 
 
-Note that the range object is marking the starting and ending point, and excluding the end.  So this works perfectly:
+### Truthiness
 
-
-```python
-for i in list(range(0, len(countries))):
-    print(countries[i])
-```
-
-    Croatia
-    USA
-    Argentina
-
-
-And as we add or subtract countries, we will still be iterating through our list elements.
+So far our conditionals have depended on whether something exactly evaluates to `True` or `False`.  But conditionals don't force us to be so precise.  Conditionals also consider some values `True` whenever they are truthy.  Take a look at the following.
 
 
 ```python
-countries = ['Croatia', 'USA', 'Argentina']
-countries.append('Mexico')
-for i in list(range(0, len(countries))):
-    print(countries[i])
+vacation_days = 1
+if vacation_days:
+    # this is run
+    vacation_days += 1
+vacation_days
 ```
 
-    Croatia
-    USA
-    Argentina
-    Mexico
 
 
-### Iterating through different datatypes
 
-So far our loop variable has always been an element of a list that is a number.  However, our block variable can represent any data type.  For example, let's have the block variable represent each of the countries directly:
+    2
+
+
+
+However, `0` is not considered truthy.  
 
 
 ```python
-countries = ['Croatia', 'USA', 'Argentina']
-for i in countries:
-    print(i)
+vacation_days = 0
+if vacation_days:
+    # this is run
+    vacation_days += 1
+vacation_days
 ```
 
-    Croatia
-    USA
-    Argentina
 
 
-So now `i` points to each element of the `countries` list.  We previously used `i` as `i` was equal to an index of a list.  However, here our block variable will equal an individual country.  Might as well be expressive:
+
+    0
+
+
+
+So because of that, the `if` block is not run, `vacation_days` is not incremented, and it stays at 0. Just as if `vacation_days` equaled `False`. 
+
+So what is truthy and what is falsy in Python?  Zero is falsy, `None` is falsy.  Also considered falsy is anything where `len` of that thing returns `False`, so `''`, `[]` are both falsy.  Let's see that. 
 
 
 ```python
-for country in countries:
-    print(country)
+greeting = ''
+if greeting:
+    greeting += 'Hello'
+else:
+    greeting += 'Goodbye'
+greeting
 ```
 
-    Croatia
-    USA
-    Argentina
 
 
-This is a standard pattern.  The variable name pointing to a list is plural, and to refer to a singular element as a loop variable, use the singular version.  So if we were printing out a list of friends name, we would write it as the following:
+
+    'Goodbye'
+
+
+
+If we are ever curious about the whether something is truthy or falsy in Python, we can just ask with the `bool` function.
 
 
 ```python
-friends = ['Bob', 'Sally', 'Fred']
-for friend in friends:
-    print(friend)
+bool(0) # False
+bool(1) # True
 ```
 
-    Bob
-    Sally
-    Fred
 
 
-And there we are printing out a list of friends.
+
+    True
+
+
+
+### Conditionals in Loops
+
+Finally, we can use conditionals in loops.  This is great at filtering out certain elements and selecting just what we need.  Let's see this.
+
+
+```python
+greetings = ['hello', 'bonjour', 'hola', 'hallo', 'ciao', 'ola', 'namaste', 'salam']
+
+def starts_with_h(words):
+    selected = []
+    for word in words:
+        if word.startswith('h'):
+            selected.append(word)
+    return selected 
+
+starts_with_h(greetings)
+```
+
+
+
+
+    ['hello', 'hola', 'hallo']
+
+
 
 ### Summary
 
-In this section, we saw how we can use loops to iterate through various elements.  This is a very powerful 
+In this lesson, we saw how conditionals allow us to make decisions with our code by only executing code under the `if` statement when the conditional argument is `True` or truthy.  We then saw how we can use the `else` statement to only run code when the conditional argument is `False` or falsy.  And as we know, code that is not in a conditional block is still run as normal.  
+
+We examined what is truthy or falsy, and saw that None, 0, and data with a length of zero are falsy.  Finally, we saw how by using `if` in a `for` loop we can return a subset of a collection that meets a criteria.
