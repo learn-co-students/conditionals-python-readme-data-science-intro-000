@@ -9,15 +9,16 @@ So far, we have seen how retrieve data from our code, and manipulate that data. 
 
 * Understand how an `if` statement can change the execution flow of our code when certain conditions are met
 * Understand how the `if` keyword works with the `else` keyword in Python
-* See how to to combine `if` statements in `for` loops
+* See how select certain data by combining `if` statements in `for` loops 
 
 ### If statement and execution flow
 
-So far in Python, all of our lines of code have run one after the other. 
+So far in Python, all of our lines of code run one after the other.  So in the code below, `vacation_days` is assigned to equal 0, then reassigned to incremented zero to one, and then increase it by one more to equal two.
 
 
 ```python
 vacation_days = 0
+vacation_days += 1
 vacation_days += 1
 vacation_days
 ```
@@ -25,13 +26,13 @@ vacation_days
 
 
 
-    1
+    2
 
 
 
-> The += is used to increment.  The statement `vacation_days += 1` can be thought of as `vacation_days = vacation_days + 1`.  So before line 2, `vacation_days` is 0.  Then we reassign `vacation_days` to equal the previous value of `vacation_days`, 0, plus one.
+> The += is used to increment.  The statement `vacation_days += 1` can be thought of as `vacation_days = vacation_days + 1`.  So before line 2, `vacation_days` is 0.  Then we reassign `vacation_days` to equal the previous value of `vacation_days`, 0, plus one.  And then increment `vacation_days` again.
 
-Contrast this with code with an `if` statement.  Once we run an `if` statement, this is no longer the case.  Code that is part of an `if` block runs does not run when the conditional argument is `False`.  
+Contrast this with code that contains an `if` statement.  Code that is part of an `if` block runs does not run when the conditional argument is `False`.  So it is not necessarily the case that every line of code runs sequentially.
 
 
 ```python
@@ -53,9 +54,9 @@ vacation_days
 
 
 
-Because the code after `if` equals `False`, the code directly underneath is not run.  So, `vacation_days` stays assigned to the number 1.  
+Because above, the code after `if` equals `False`, the code directly underneath is not run.  So, `vacation_days` stays assigned to the number 1.  
 
-Just as we did with functions, we indicate that something is part of the block by indenting.  So we indented the line `vacation_days += 1` to ensure that whether it is run depends on the conditional argument above.  To end the block we simply stop indenting.
+Just as we did with functions, we indicate that something is part of the block by indenting.  So the line `vacation_days += 1` is indented to ensure that whether it is run depends on the conditional argument above.  To end the block we simply stop indenting.
 
 
 ```python
@@ -75,7 +76,7 @@ vacation_days
 
 
 
-So above, the last two lines are run as they are not part of the `if` block.
+So in the above cell, the last two lines are run because they are not part of the `if` block.
 
 And, as you may have guessed, when the conditional argument is `True`, the code in the conditional block **does** run.  
 
@@ -97,7 +98,7 @@ vacation_days
 
 ### Code that sometimes runs
 
-Our code in conditional arguments becomes more interesting if we use conditional arguments that are less direct.
+Our code in conditional arguments becomes more interesting when we use conditional arguments that are less direct.
 
 
 ```python
@@ -114,7 +115,7 @@ long_vacation(3) # None
 
 In the code above, you can hopefully see the power of our `if` statement.  Our `if` argument is the expression `number_of_days > 4`, which sometimes evaluates to `True` and sometimes `False`, it depends on the number of days.
 
-Now sometimes we want to say that when something is not `True`, do something **else**.
+Now sometimes we want to say that when something is `True` do one thing, and when not `True` do something **else**.
 
 
 ```python
@@ -158,6 +159,8 @@ vacation_days
 
 
 
+Even through `vacation_days` did not equal `True` above, it still ran the code in the `if` block because `vacation_days` equaled 1 and 1 is considered truthy.
+
 However, `0` is not considered truthy.  
 
 
@@ -176,9 +179,9 @@ vacation_days
 
 
 
-So because of that, the `if` block is not run, `vacation_days` is not incremented, and it stays at 0. Just as if `vacation_days` equaled `False`. 
+So because of that, the `if` block is not run, `vacation_days` is not incremented, and it stays at 0, just as if `vacation_days` equaled `False`. 
 
-So what is truthy and what is falsy in Python?  Zero is falsy, `None` is falsy.  Also considered falsy is anything where `len` of that thing returns `False`, so `''`, `[]` are both falsy.  Let's see that. 
+So what is truthy and what is falsy in Python?  Zero is falsy, and `None` is falsy.  Also falsy is anything where `len` of that thing returns `False`, so `''`, `[]` are both falsy.  Let's see that. 
 
 
 ```python
@@ -237,8 +240,10 @@ starts_with_h(greetings)
 
 
 
+The above `starts_with_h` function uses a `for` loop to move through the list of words one by one.  For each word, it checks if the word starts with `h` and if it does, it adds that word to the `selected` list.  Finally, the function returns that list of selected elements.  So by using the `for` loop combined with `if` we can choose elements of a list based on a specific criteria.
+
 ### Summary
 
 In this lesson, we saw how conditionals allow us to make decisions with our code by only executing code under the `if` statement when the conditional argument is `True` or truthy.  We then saw how we can use the `else` statement to only run code when the conditional argument is `False` or falsy.  And as we know, code that is not in a conditional block is still run as normal.  
 
-We examined what is truthy or falsy, and saw that None, 0, and data with a length of zero are falsy.  Finally, we saw how by using `if` in a `for` loop we can return a subset of a collection that meets a criteria.
+We examined what is truthy or falsy, and saw that None, 0, and data with a length of zero are falsy.  If we are unsure, we can use the `bool` function to see a the boolean value of a piece of data.  Finally, we saw how by using `if` in a `for` loop we can return a subset of a collection that meets a criteria.
