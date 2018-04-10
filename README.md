@@ -111,6 +111,17 @@ def long_vacation(number_of_days):
 
 ```python
 long_vacation(5) # 'that is a long vacation'
+```
+
+
+
+
+    'that is a long vacation'
+
+
+
+
+```python
 long_vacation(3) # None
 ```
 
@@ -130,6 +141,17 @@ def vacation_length(number_of_days):
 
 ```python
 vacation_length(3) # 'not so long'
+```
+
+
+
+
+    'not so long'
+
+
+
+
+```python
 vacation_length(5) # 'that is a long vacation'
 ```
 
