@@ -3,17 +3,17 @@
 
 ### Introduction
 
-So far, we have seen how retrieve data from our code, and manipulate that data.  What we have not learned, however, is how to make decisions with that data.  Making decisions is something that we do every day in the real world.  For example, if a restaurant is too expensive we may want to choose a different one.  If it's too cold outside, we should find something to do inside.  These are the types of decisions we want our code to make as well.  After learning about conditionals we can do just that.  
+So far, we have seen how to retrieve data from our code, and manipulate that data.  What we have not learned, however, is how to make decisions with that data. Making decisions is something that we do every day in the real world. For example, if a restaurant is too expensive we may want to choose a different one. If it's too cold outside, we should find something to do inside. These are the types of decisions we want our code to make as well. After learning about conditionals we can do just that.  
 
 ### Learning Objectives
 
 * Understand how an `if` statement can change the execution flow of our code when certain conditions are met
 * Understand how the `if` keyword works with the `else` keyword in Python
-* See how select certain data by combining `if` statements in `for` loops 
+* See how to select certain data by combining `if` statements in `for` loops 
 
-### If statement and execution flow
+### If Statement and Execution Flow
 
-So far in Python, all of our lines of code run one after the other.  So in the code below, `vacation_days` is assigned to equal 0, then reassigned to incremented zero to one, and then increase it by one more to equal two.
+So far in Python, all of our lines of code run one after the other. So in the code below, `vacation_days` is inigially assigned to `0`, then it is reassigned by incrementing by one, and again reassigned by incrementing again by one, which brings the `vacation_days` to a total of `2`.
 
 
 ```python
@@ -30,9 +30,10 @@ vacation_days
 
 
 
-> The += is used to increment.  The statement `vacation_days += 1` can be thought of as `vacation_days = vacation_days + 1`.  So before line 2, `vacation_days` is 0.  Then we reassign `vacation_days` to equal the previous value of `vacation_days`, 0, plus one.  And then increment `vacation_days` again.
+> The `+=` is used to increment. The statement `vacation_days += 1` can be thought of as `vacation_days = vacation_days + 1`. On line 2, `vacation_days` is `0`. Then we reassign `vacation_days` to equal the previous value of `vacation_days`, which is `0`, plus `1`. Again we increment vacation_days on line 3, which would now equate to `1 + 1`, and finally we output the new value of `vacation_days`, `2`.
 
-Contrast this with code that contains an `if` statement.  Code that is part of an `if` block runs does not run when the conditional argument is `False`.  So it is not necessarily the case that every line of code runs sequentially.
+
+Contrast this with code that contains an `if` statement. Code that is part of an `if` block runs only when the conditional argument following the `if` evaluates to `True`. So it is not necessarily the case that every line of code runs.
 
 
 ```python
@@ -54,7 +55,7 @@ vacation_days
 
 
 
-Because above, the code after `if` equals `False`, the code directly underneath is not run.  So, `vacation_days` stays assigned to the number 1.  
+Above we can see that since the codition following the `if` equals `False`, the code directly underneath is not run.  So, `vacation_days` stays assigned to the number 1.  
 
 Just as we did with functions, we indicate that something is part of the block by indenting.  So the line `vacation_days += 1` is indented to ensure that whether it is run depends on the conditional argument above.  To end the block we simply stop indenting.
 
@@ -141,7 +142,9 @@ vacation_length(5) # 'that is a long vacation'
 
 ### Truthiness
 
-So far our conditionals have depended on whether something exactly evaluates to `True` or `False`.  But conditionals don't force us to be so precise.  Conditionals also consider some values `True` whenever they are truthy.  Take a look at the following.
+![truthiness](truthiness.png "Truthiness")
+
+So far our conditionals have depended on whether something evaluates exactly to `True` or `False`.  But conditionals don't force us to be so precise. Conditionals also consider some values `True` if they are `truthy` and `False` if they are `falsy`.  Take a look at the following:
 
 
 ```python
@@ -159,7 +162,7 @@ vacation_days
 
 
 
-Even through `vacation_days` did not equal `True` above, it still ran the code in the `if` block because `vacation_days` equaled 1 and 1 is considered truthy.
+Even through `vacation_days` did not equal `True` above, it still ran the code in the `if` block because the value for `vacation_days` was `1`, which is considered `truthy`.
 
 However, `0` is not considered truthy.  
 
@@ -167,7 +170,7 @@ However, `0` is not considered truthy.
 ```python
 vacation_days = 0
 if vacation_days:
-    # this is run
+    # this is not run
     vacation_days += 1
 vacation_days
 ```
@@ -179,7 +182,7 @@ vacation_days
 
 
 
-So because of that, the `if` block is not run, `vacation_days` is not incremented, and it stays at 0, just as if `vacation_days` equaled `False`. 
+Since `0` is **not** `truthy`, it is considered `falsy`. We can see that the `if` block was not run and `vacation_days` was not incremented, almost as if `vacation_days` evaluated to `False`. 
 
 So what is truthy and what is falsy in Python?  Zero is falsy, and `None` is falsy.  Also falsy is anything where `len` of that thing returns `False`, so `''`, `[]` are both falsy.  Let's see that. 
 
@@ -205,6 +208,17 @@ If we are ever curious about the whether something is truthy or falsy in Python,
 
 ```python
 bool(0) # False
+```
+
+
+
+
+    False
+
+
+
+
+```python
 bool(1) # True
 ```
 
@@ -244,6 +258,6 @@ The above `starts_with_h` function uses a `for` loop to move through the list of
 
 ### Summary
 
-In this lesson, we saw how conditionals allow us to make decisions with our code by only executing code under the `if` statement when the conditional argument is `True` or truthy.  We then saw how we can use the `else` statement to only run code when the conditional argument is `False` or falsy.  And as we know, code that is not in a conditional block is still run as normal.  
+In this lesson, we saw how conditionals allow us to make decisions with our code by only executing code under the `if` statement when the conditional argument is `True` or truthy.  We then saw how we can use the `else` statement to only run code when the conditional argument is `False` or falsy, and as we know, code that is not in a conditional block is still run as normal.  
 
 We examined what is truthy or falsy, and saw that None, 0, and data with a length of zero are falsy.  If we are unsure, we can use the `bool` function to see a the boolean value of a piece of data.  Finally, we saw how by using `if` in a `for` loop we can return a subset of a collection that meets a criteria.
